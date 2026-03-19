@@ -18,6 +18,7 @@ fun TvShowDto.toDomain(): TvShow {
         name = this.name,
         network = this.network,
         status = this.status,
-        imageUrl = this.imageThumbnailPath
+        imageUrl = this.imageThumbnailPath,
+        country = "Inconnu"
     )
 }

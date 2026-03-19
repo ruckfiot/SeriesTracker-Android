@@ -4,13 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+
+// Les imports magiques pour Hilt et ton ViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.formation.seriestracker.ui.EcranAccueil
+import com.formation.seriestracker.ui.TvShowViewModel
 import com.formation.seriestracker.ui.theme.SeriesTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,28 +25,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             SeriesTrackerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    Box(modifier = Modifier.padding(innerPadding)) {
+
+                        // 1. Hilt nous génère le ViewModel tout prêt
+                        val viewModel: TvShowViewModel = hiltViewModel()
+
+                        // 2. On le passe à ton écran !
+                        EcranAccueil(viewModel = viewModel)
+
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SeriesTrackerTheme {
-        Greeting("Android")
     }
 }
