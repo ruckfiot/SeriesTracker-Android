@@ -40,4 +40,7 @@ class FakeRepository @Inject constructor() : TvShowRepository {
     override fun getTvShows(): Flow<List<TvShow>> = flow {
         emit(fakeShows)
     }
+    override suspend fun getPopularShows(page: Int): List<TvShow> {
+        return emptyList()
+    }
 }
