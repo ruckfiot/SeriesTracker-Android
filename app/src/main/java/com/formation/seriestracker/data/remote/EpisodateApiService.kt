@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface EpisodateApiService {
-    // Cette fonction va chercher les séries populaires sur l'API
     @GET("most-popular")
     suspend fun getPopularShows(
         @Query("page") page: Int = 1

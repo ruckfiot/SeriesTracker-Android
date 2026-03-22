@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-
-// Les imports magiques pour Hilt et ton ViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.formation.seriestracker.ui.EcranAccueil
 import com.formation.seriestracker.ui.TvShowViewModel
@@ -26,13 +24,8 @@ class MainActivity : ComponentActivity() {
             SeriesTrackerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
-
-                        // 1. Hilt nous génère le ViewModel tout prêt
                         val viewModel: TvShowViewModel = hiltViewModel()
-
-                        // 2. On le passe à ton écran !
                         EcranAccueil(viewModel = viewModel)
-
                     }
                 }
             }
