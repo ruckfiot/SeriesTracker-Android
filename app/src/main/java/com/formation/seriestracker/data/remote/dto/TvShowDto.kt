@@ -1,7 +1,7 @@
 package com.formation.seriestracker.data.remote.dto
 
-import com.google.gson.annotations.SerializedName
 import com.formation.seriestracker.domain.model.TvShow
+import com.google.gson.annotations.SerializedName
 
 data class TvShowDto(
     @SerializedName("id") val id: Int,
@@ -10,10 +10,8 @@ data class TvShowDto(
     @SerializedName("image_thumbnail_path") val imageThumbnailPath: String,
     @SerializedName("status") val status: String
 )
-
-
-fun TvShowDto.toDomain(): TvShow {
-    return TvShow(
+fun TvShowDto.toDomain(): TvShow =
+    TvShow(
         id = this.id,
         name = this.name,
         network = this.network,
@@ -21,4 +19,3 @@ fun TvShowDto.toDomain(): TvShow {
         imageUrl = this.imageThumbnailPath,
         country = "Inconnu"
     )
-}

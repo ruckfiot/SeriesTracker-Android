@@ -12,42 +12,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TvShowViewModel @Inject constructor(
-    private val repository: TvShowRepository
-) : ViewModel() {
-
-    // On initialise l'état avec isLoading = true
+class TvShowViewModel @Inject constructor(private val repository: TvShowRepository):ViewModel() {
     private val _uiState = MutableStateFlow(TvShowUiState(isLoading = true))
     val uiState: StateFlow<TvShowUiState> = _uiState.asStateFlow()
 
-    init {
-        chargerSeries()
-    }
+    init { chargerSeries()}
 
     private fun chargerSeries() {
-        // On remet l'état de chargement à zéro
-        _uiState.update { it.copy(isLoading = true, errorMessage = null) }
+        _uiState.update { it.copy(isLoading = true, errorMessage = null)}
 
-        // On va chercher les données dans ton FakeRepository
         viewModelScope.launch {
-            try {
-                repository.getTvShows().collect { series ->
-                    // On met à jour l'état avec la liste des séries !
-                    _uiState.update {
-                        it.copy(isLoading = false, tvShows = series)
-                    }
+            try {repository.getTvShows().collect { series ->
+                    _uiState.update { it.copy(isLoading = false, tvShows = series)}
                 }
             } catch (e: Exception) {
-                // S'il y a un souci, on affiche le message d'erreur
-                _uiState.update {
-                    it.copy(isLoading = false, errorMessage = "Impossible de charger les séries")
-                }
+                _uiState.update {it.copy(isLoading = false, errorMessage = "Erreur: ${e.message}")}
             }
         }
     }
 
-    // La fonction appelée par le bouton "Réessayer" de ton EcranAccueil
-    fun reessayer() {
-        chargerSeries()
-    }
+    fun reessayer() {chargerSeries()}
 }

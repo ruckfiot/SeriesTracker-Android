@@ -6,5 +6,5 @@ data class TvShow(
     val network: String,
     val status: String,
     val imageUrl: String,
-    val country : String
+    val country: String
 )
