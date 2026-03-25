@@ -8,13 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.formation.seriestracker.domain.model.TvShow
 
 @Composable
 fun EcranAccueil(viewModel: TvShowViewModel) {
-    // Observation de l'état via StateFlow
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
@@ -22,39 +23,78 @@ fun EcranAccueil(viewModel: TvShowViewModel) {
         contentAlignment = Alignment.Center
     ) {
         when {
-            // État de chargement : CircularProgressIndicator centré
             uiState.isLoading -> {
                 CircularProgressIndicator()
             }
 
-            // État d'erreur : Message d'erreur et bouton Réessayer
-            uiState.errorMessage != null -> {
+            uiState.errorMessage?.isNotEmpty() == true -> {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(32.dp)
                 ) {
                     Text(
-                        text = uiState.errorMessage ?: "Une erreur est survenue.",
+                        text = uiState.errorMessage!!,
                         color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { viewModel.reessayer() }) { // Appel de la fonction exposée par le ViewModel
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Button(onClick = { viewModel.reessayer() }) {
                         Text("Réessayer")
                     }
                 }
             }
 
-            // État de succès : LazyColumn avec les CarteSerie
-            uiState.tvShows.isNotEmpty() -> { // Assumant que Membre A a nommé la liste 'tvShows'
+            uiState.tvShows.isNotEmpty() -> {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(vertical = 8.dp)
+                    contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(uiState.tvShows) { tvShow ->
-                        CarteSerie(tvShow = tvShow)
+                        CarteSerie(tvShow)
                     }
                 }
+            }
+            else -> {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.padding(32.dp)
+                ) {
+                    Text(
+                        text = "Aucune série trouvée",
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text("Vérifiez votre connexion")
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Button(onClick = { viewModel.reessayer() }) {
+                        Text("Réessayer")
+                    }
+                }
+            }
+        }
+    }
+    @Composable
+    fun CarteSerie(tvShow: TvShow) {
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = tvShow.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "${tvShow.network} • ${tvShow.country}",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = tvShow.status,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }
