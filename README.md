@@ -5,7 +5,7 @@ Les données proviennent de l'API publique EpisoDate.
 
 ## Aperçu de l'application
 L’application peut afficher les séries.
-![Aplication](Images/Application.png)
+![Aplication](Images/Aplication.png)
 
 Si aucune connexion n’est possible, un bouton pour réessayer et reconnecter le téléphone apparaît.
 ![Affichage_reessayer](Images/Affichage_reessayer.png)
