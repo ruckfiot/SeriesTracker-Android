@@ -5,7 +5,7 @@ Les données proviennent de l'API publique EpisoDate.
 
 ## Aperçu de l'application
 L’application peut afficher les séries.
-![Aplication](https://hackmd.io/_uploads/B1Hc6eNjWe.png)
+![Aplication](Images/Application.png)
 
 Si aucune connexion n’est possible, un bouton pour réessayer et reconnecter le téléphone apparaît.
 ![Affichage_reessayer](Images/Affichage_reessayer.png)
@@ -26,7 +26,7 @@ Le code est structuré selon une séparation claire des responsabilités. Le Mod
 
 Le Repository est chargé de la logique de récupération des données, utilisant l'ApiService, et gère également les exceptions réseau. Le ViewModel assure la liaison entre le Repository et la View, exposant un StateFlow<UiState> observable pour l'état de l'interface. Enfin, la View est constituée de Composables (éléments d'interface utilisateur) passifs qui se mettent à jour uniquement en fonction de l'état exposé par le ViewModel.
 
-![architecture](https://hackmd.io/_uploads/SypAaxNsWl.jpg)
+![architecture](Images/architecture.png)
 
 
 ## L'Équipe
