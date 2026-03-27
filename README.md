@@ -8,7 +8,7 @@ L’application peut afficher les séries.
 ![Aplication](https://hackmd.io/_uploads/B1Hc6eNjWe.png)
 
 Si aucune connexion n’est possible, un bouton pour réessayer et reconnecter le téléphone apparaît.
-![Affichage_reessayer](Image/Affichage_reessayer.png)
+![Affichage_reessayer](~/Image/Affichage_reessayer.png)
 
 
 
