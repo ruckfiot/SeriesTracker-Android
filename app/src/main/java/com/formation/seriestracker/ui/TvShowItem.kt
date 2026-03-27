@@ -36,7 +36,7 @@ fun CarteSerie(tvShow: TvShow) {
             )
 
             Column(modifier = Modifier.weight(1f)) {
-                // Titre de la série [cite: 67]
+                // Titre de la série
                 Text(
                     text = tvShow.name,
                     style = MaterialTheme.typography.titleMedium,
