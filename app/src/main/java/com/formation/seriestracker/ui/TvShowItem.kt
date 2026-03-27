@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage // Dépendance Coil 3
+import coil3.compose.AsyncImage
 import com.formation.seriestracker.domain.model.TvShow
 
 @Composable
@@ -24,8 +24,6 @@ fun CarteSerie(tvShow: TvShow) {
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Row(modifier = Modifier.padding(12.dp), verticalAlignment = Alignment.CenterVertically) {
-
-            // Miniature chargée avec Coil
             AsyncImage(
                 model = tvShow.imageUrl,
                 contentDescription = "Miniature de ${tvShow.name}",
@@ -36,14 +34,12 @@ fun CarteSerie(tvShow: TvShow) {
             )
 
             Column(modifier = Modifier.weight(1f)) {
-                // Titre de la série [cite: 67]
                 Text(
                     text = tvShow.name,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
 
-                // Chaîne de diffusion et pays
                 Text(
                     text = "${tvShow.network} - ${tvShow.country}",
                     style = MaterialTheme.typography.bodyMedium,
@@ -52,11 +48,10 @@ fun CarteSerie(tvShow: TvShow) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // Badge coloré pour le statut
                 val (badgeColor, textColor) = if (tvShow.status.equals("Running", ignoreCase = true)) {
-                    Color(0xFF4CAF50) to Color.White // Vert pour Running
+                    Color(0xFF4CAF50) to Color.White
                 } else {
-                    Color.Gray to Color.White // Gris pour Ended
+                    Color.Gray to Color.White
                 }
 
                 Box(
