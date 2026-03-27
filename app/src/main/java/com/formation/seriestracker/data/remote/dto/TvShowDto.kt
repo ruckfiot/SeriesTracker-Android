@@ -8,7 +8,8 @@ data class TvShowDto(
     @SerializedName("name") val name: String,
     @SerializedName("network") val network: String,
     @SerializedName("image_thumbnail_path") val imageThumbnailPath: String,
-    @SerializedName("status") val status: String
+    @SerializedName("status") val status: String,
+    @SerializedName("country") val country: String
 )
 fun TvShowDto.toDomain(): TvShow =
     TvShow(
@@ -17,5 +18,5 @@ fun TvShowDto.toDomain(): TvShow =
         network = this.network,
         status = this.status,
         imageUrl = this.imageThumbnailPath,
-        country = "Inconnu"
+        country = this.country
     )
